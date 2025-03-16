@@ -23,3 +23,10 @@ pre {
   margin: 0;
   text-align: left;
 }
+
+/* Add responsive adjustments for the preview components */
+@media (max-width: 768px) {
+  .flex.flex-wrap.gap-2 {
+    justify-content: center;
+  }
+}
