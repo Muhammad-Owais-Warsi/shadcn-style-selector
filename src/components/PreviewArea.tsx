@@ -12,24 +12,18 @@ import { Separator } from "@/components/ui/separator";
 type PreviewAreaProps = {
   fontFamily: string;
   fontWeight: string;
-  fontSize: string;
-  lineHeight: string;
-  letterSpacing: string;
   customText: string;
 };
 
 const PreviewArea = ({
   fontFamily,
   fontWeight,
-  fontSize,
-  lineHeight,
-  letterSpacing,
   customText,
 }: PreviewAreaProps) => {
   const selectedFont = `font-${fontFamily}`;
   const demoText = customText || "The quick brown fox jumps over the lazy dog.";
   
-  const textClasses = `${selectedFont} ${fontWeight} ${fontSize} ${lineHeight} ${letterSpacing}`;
+  const textClasses = `${selectedFont} ${fontWeight}`;
   
   return (
     <div className="space-y-8">

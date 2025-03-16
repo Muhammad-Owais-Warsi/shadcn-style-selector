@@ -15,9 +15,6 @@ const FontStyler = () => {
   const [fontStyles, setFontStyles] = useState({
     fontFamily: FONT_FAMILIES[0].value,
     fontWeight: "font-normal",
-    fontSize: "text-base",
-    lineHeight: "leading-normal",
-    letterSpacing: "tracking-normal"
   });
   
   const [selectedTheme, setSelectedTheme] = useState<ThemeDefinition | null>(null);
@@ -43,31 +40,10 @@ const FontStyler = () => {
     fontStyles.fontWeight === "font-medium" ? "font-weight: 500;" :
     fontStyles.fontWeight === "font-semibold" ? "font-weight: 600;" :
     fontStyles.fontWeight === "font-bold" ? "font-weight: 700;" : ""}
-  ${fontStyles.fontSize === "text-xs" ? "font-size: 0.75rem;" : 
-    fontStyles.fontSize === "text-sm" ? "font-size: 0.875rem;" :
-    fontStyles.fontSize === "text-base" ? "font-size: 1rem;" :
-    fontStyles.fontSize === "text-lg" ? "font-size: 1.125rem;" : 
-    fontStyles.fontSize === "text-xl" ? "font-size: 1.25rem;" :
-    fontStyles.fontSize === "text-2xl" ? "font-size: 1.5rem;" :
-    fontStyles.fontSize === "text-3xl" ? "font-size: 1.875rem;" :
-    fontStyles.fontSize === "text-4xl" ? "font-size: 2.25rem;" :
-    fontStyles.fontSize === "text-5xl" ? "font-size: 3rem;" : ""}
-  ${fontStyles.lineHeight === "leading-none" ? "line-height: 1;" :
-    fontStyles.lineHeight === "leading-tight" ? "line-height: 1.25;" :
-    fontStyles.lineHeight === "leading-snug" ? "line-height: 1.375;" :
-    fontStyles.lineHeight === "leading-normal" ? "line-height: 1.5;" :
-    fontStyles.lineHeight === "leading-relaxed" ? "line-height: 1.625;" :
-    fontStyles.lineHeight === "leading-loose" ? "line-height: 2;" : ""}
-  ${fontStyles.letterSpacing === "tracking-tighter" ? "letter-spacing: -0.05em;" :
-    fontStyles.letterSpacing === "tracking-tight" ? "letter-spacing: -0.025em;" :
-    fontStyles.letterSpacing === "tracking-normal" ? "letter-spacing: 0;" :
-    fontStyles.letterSpacing === "tracking-wide" ? "letter-spacing: 0.025em;" :
-    fontStyles.letterSpacing === "tracking-wider" ? "letter-spacing: 0.05em;" :
-    fontStyles.letterSpacing === "tracking-widest" ? "letter-spacing: 0.1em;" : ""}
 }
 
 /* Tailwind HTML Example */
-<p class="${fontStyles.fontFamily ? `font-${fontStyles.fontFamily}` : ""} ${fontStyles.fontWeight} ${fontStyles.fontSize} ${fontStyles.lineHeight} ${fontStyles.letterSpacing}">
+<p class="${fontStyles.fontFamily ? `font-${fontStyles.fontFamily}` : ""} ${fontStyles.fontWeight}">
   Your text here
 </p>`;
   };
@@ -144,9 +120,6 @@ theme: {
               <PreviewArea 
                 fontFamily={fontStyles.fontFamily}
                 fontWeight={fontStyles.fontWeight}
-                fontSize={fontStyles.fontSize}
-                lineHeight={fontStyles.lineHeight}
-                letterSpacing={fontStyles.letterSpacing}
                 customText={customText}
               />
             </CardContent>

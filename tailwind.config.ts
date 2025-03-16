@@ -26,6 +26,10 @@ export default {
 				display: ['Oswald', 'sans-serif'],
 				heading: ['Playfair Display', 'serif'],
 				handwriting: ['Dancing Script', 'cursive'],
+				poppins: ['Poppins', 'sans-serif'],
+				'space-grotesk': ['Space Grotesk', 'sans-serif'],
+				geist: ['Geist', 'sans-serif'],
+				montserrat: ['Montserrat', 'sans-serif'],
 				system: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
 			},
 			colors: {
