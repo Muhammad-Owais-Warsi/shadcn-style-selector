@@ -1,60 +1,48 @@
-
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useToast } from "@/hooks/use-toast";
 
 export default function ThemeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("color-theme") === "dark";
+    }
+    return false;
+  });
+
   const { toast } = useToast();
 
-  // On component mount, check localStorage first, then system preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem("color-theme");
-    
-    if (savedTheme === "dark") {
-      setIsDarkMode(true);
+    if (isDarkMode) {
       document.documentElement.classList.add("dark");
-    } else if (savedTheme === "light") {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
+      document.documentElement.style.setProperty("--background", "#121212");
+      document.documentElement.style.setProperty("--foreground", "#ffffff");
     } else {
-      // If no saved preference, check system preference
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setIsDarkMode(prefersDark);
-      if (prefersDark) {
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("color-theme", "dark");
-      } else {
-        localStorage.setItem("color-theme", "light");
-      }
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.setProperty("--background", "#ffffff");
+      document.documentElement.style.setProperty("--foreground", "#000000");
     }
-  }, []);
+  }, [isDarkMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("color-theme", "light");
+    setIsDarkMode((prev) => {
+      const newTheme = !prev;
+      localStorage.setItem("color-theme", newTheme ? "dark" : "light");
+
       toast({
-        title: "Light mode activated",
-        description: "The application is now in light mode",
+        title: newTheme ? "Dark mode activated" : "Light mode activated",
+        description: `The application is now in ${newTheme ? "dark" : "light"} mode`,
         duration: 2000,
       });
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("color-theme", "dark");
-      toast({
-        title: "Dark mode activated",
-        description: "The application is now in dark mode",
-        duration: 2000,
-      });
-    }
+
+      return newTheme;
+    });
   };
 
   return (
-    <Toggle 
-      aria-label="Toggle dark mode" 
+    <Toggle
+      aria-label="Toggle dark mode"
       pressed={isDarkMode}
       onPressedChange={toggleTheme}
       className="rounded-full p-2 hover:bg-secondary"
