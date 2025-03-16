@@ -14,7 +14,8 @@ type ThemeSelectorProps = {
 }
 
 export default function ThemeSelector({ onChange }: ThemeSelectorProps) {
-  const [selectedTheme, setSelectedTheme] = useState<string>(THEMES[0].name);
+  // Set zinc as default theme
+  const [selectedTheme, setSelectedTheme] = useState<string>("zinc");
 
   useEffect(() => {
     const theme = THEMES.find(t => t.name === selectedTheme);

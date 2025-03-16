@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +8,7 @@ import ThemeSelector from "@/components/ThemeSelector";
 import PreviewArea from "@/components/PreviewArea";
 import CodeSnippet from "@/components/CodeSnippet";
 import CustomTextInput from "@/components/CustomTextInput";
+import ThemeToggle from "@/components/ThemeToggle";
 import { FONT_FAMILIES } from "@/constants/fonts";
 import { ThemeDefinition } from "@/constants/themes";
 
@@ -83,10 +85,11 @@ theme: {
 
   return (
     <div className="container mx-auto py-10 px-4 sm:px-6">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">Font & Theme Styler</h1>
-        <p className="text-muted-foreground">Customize your typography and theme, then copy the code</p>
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="text-4xl font-bold">Font & Theme Styler</h1>
+        <ThemeToggle />
       </div>
+      <p className="text-muted-foreground text-center mb-10">Customize your typography and theme, then copy the code</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">
