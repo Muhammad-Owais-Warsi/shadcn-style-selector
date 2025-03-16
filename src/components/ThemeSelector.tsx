@@ -14,13 +14,17 @@ type ThemeSelectorProps = {
 }
 
 export default function ThemeSelector({ onChange }: ThemeSelectorProps) {
-  // Set zinc as default theme
-  const [selectedTheme, setSelectedTheme] = useState<string>("zinc");
+  // Set zinc as default theme but check localStorage first
+  const [selectedTheme, setSelectedTheme] = useState<string>(() => {
+    const savedTheme = localStorage.getItem("selected-theme");
+    return savedTheme || "zinc";
+  });
 
   useEffect(() => {
     const theme = THEMES.find(t => t.name === selectedTheme);
     if (theme) {
       onChange(theme);
+      localStorage.setItem("selected-theme", selectedTheme);
     }
   }, [selectedTheme, onChange]);
 

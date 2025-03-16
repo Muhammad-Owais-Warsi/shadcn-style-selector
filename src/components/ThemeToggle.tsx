@@ -8,12 +8,26 @@ export default function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { toast } = useToast();
 
-  // Check system preference on mount
+  // On component mount, check localStorage first, then system preference
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setIsDarkMode(prefersDark);
-    if (prefersDark) {
+    const savedTheme = localStorage.getItem("color-theme");
+    
+    if (savedTheme === "dark") {
+      setIsDarkMode(true);
       document.documentElement.classList.add("dark");
+    } else if (savedTheme === "light") {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    } else {
+      // If no saved preference, check system preference
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setIsDarkMode(prefersDark);
+      if (prefersDark) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("color-theme", "dark");
+      } else {
+        localStorage.setItem("color-theme", "light");
+      }
     }
   }, []);
 
@@ -21,6 +35,7 @@ export default function ThemeToggle() {
     setIsDarkMode(!isDarkMode);
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light");
       toast({
         title: "Light mode activated",
         description: "The application is now in light mode",
@@ -28,6 +43,7 @@ export default function ThemeToggle() {
       });
     } else {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark");
       toast({
         title: "Dark mode activated",
         description: "The application is now in dark mode",
